@@ -49,7 +49,7 @@ app.get('/profile/:id', (req, res) => {
         }
     });
     if (!found) {
-        res.status(404).json('User not found');
+        res.status(400).json('User not found');
     }
 });
 
@@ -64,6 +64,21 @@ app.post('/register', (req, res) => {
         joined: new Date(),
     });
     res.json(database.users[database.users.length-1]);
+});
+
+app.put('/image', (req, res) => {
+    const { id } = req.body;
+    let found = false;
+    database.users.forEach(user => {
+        if (user.id === id) {
+            found = true;
+            user.entries++;
+            return res.json(user.entries);
+        }
+    });
+    if (!found) {
+        res.status(400).json('User not found');
+    }
 });
 
 app.listen(3000, () => {
