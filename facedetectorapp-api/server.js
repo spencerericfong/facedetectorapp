@@ -39,6 +39,20 @@ app.post('/signin', (req, res) => {
     }
 });
 
+app.get('/profile/:id', (req, res) => {
+    const { id } = req.params;
+    let found = false;
+    database.users.forEach(user => {
+        if (user.id === id) {
+            found = true;
+            return res.json(user);
+        }
+    });
+    if (!found) {
+        res.status(404).json('User not found');
+    }
+});
+
 app.post('/register', (req, res) => {
     const { email, name, password } = req.body;
     database.users.push({
