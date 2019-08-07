@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send(database.users);
+    res.send(db.users);
 });
 
 app.post('/signin', signin.handleSignin(db, bcrypt));
@@ -34,6 +34,8 @@ app.get('/profile/:id', profile.handleProfileGet(db));
 app.post('/register', register.handleRegister(db, bcrypt));
 
 app.put('/image', image.handleImage(db));
+
+app.post('/imageurl', image.handleApiCall);
 
 app.listen(3000, () => {
     console.log('App is running on port 3000');
