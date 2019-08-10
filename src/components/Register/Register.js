@@ -22,7 +22,7 @@ class Register extends React.Component {
         this.setState({ password: event.target.value});
     }
 
-    onSubmitRegister = () => {
+    onClickRegister = () => {
         fetch('http://localhost:3000/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
@@ -41,9 +41,30 @@ class Register extends React.Component {
             });
     }
 
+    onEnterRegister = event => {
+        if (event.key === 'Enter') {
+            fetch('http://localhost:3000/register', {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password,
+                    name: this.state.name,
+                }),
+            })
+                .then(response => response.json())
+                .then(user => {
+                    if (user.id) {
+                        this.props.loadUser(user);
+                        this.props.onRouteChange('home');
+                    }
+                });
+        }
+    }
+
     render() {
         return (
-            <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+            <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center" onKeyPress={this.onEnterRegister}>
                 <main className="pa4 black-80">
                   <div className="measure">
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
@@ -62,7 +83,7 @@ class Register extends React.Component {
                       </div>
                     </fieldset>
                     <div className="">
-                      <input onClick={this.onSubmitRegister} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register"/>
+                      <input onClick={this.onClickRegister} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register"/>
                     </div>
                   </div>
                 </main>
