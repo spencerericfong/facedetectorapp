@@ -7,6 +7,8 @@ import Rank from './components/Rank/Rank.js';
 import SignIn from './components/SignIn/SignIn.js'
 import Register from './components/Register/Register.js'
 import Particles from 'react-particles-js';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 const particlesOptions = {
@@ -35,6 +37,8 @@ const initialState = {
         joined: new Date(),
     },
 };
+
+toast.configure();
 
 class App extends Component {
     constructor() {
@@ -115,6 +119,12 @@ class App extends Component {
         this.setState({route: route});
     }
 
+    invalidLogin = () => {
+        toast.error("Invalid login.", {
+            position: toast.POSITION.TOP_CENTER
+        });
+    }
+
     render() {
         const { imageUrl, box, route, isSignedIn } = this.state;
         return (
@@ -130,7 +140,7 @@ class App extends Component {
                     </div>
                 :   (
                         route === 'signIn'
-                        ?   <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                        ?   <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} invalidLogin={this.invalidLogin}/>
                         :   <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                     )
             }
