@@ -106,7 +106,12 @@ class App extends Component {
                 }
                 this.displayFaceBox(this.calculateFaceLocation(response))
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                toast.error("Error loading image.", {
+                    position: toast.POSITION.TOP_CENTER
+                })
+            });
     }
 
     onRouteChange = (route) => {
