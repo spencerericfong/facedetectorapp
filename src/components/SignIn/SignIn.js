@@ -75,7 +75,7 @@ class SignIn extends React.Component {
                             <input onChange={this.onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
                           </div>
                         </fieldset>
-                        <div className="">
+                        <div className="button">
                           <input onClick={this.onClickSignIn} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in"/>
                         </div>
                         <div className="lh-copy mt3">
