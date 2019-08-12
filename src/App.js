@@ -103,7 +103,12 @@ class App extends Component {
                         .then(count => {
                             this.setState(Object.assign(this.state.user, { entries: count }))
                         })
-                        .catch(console.log);
+                        .catch(err => {
+                            console.log(err);
+                            toast.error("Oops! An error occurred.", {
+                                position: toast.POSITION.TOP_CENTER
+                            })
+                        });
                 }
                 this.displayFaceBox(this.calculateFaceLocation(response))
             })
