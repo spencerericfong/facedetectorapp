@@ -4,6 +4,7 @@ import Logo from './components/Logo/Logo.js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
 import FaceDectector from './components/FaceDetector/FaceDetector.js';
 import Rank from './components/Rank/Rank.js';
+import About from './components/About/About.js';
 import SignIn from './components/SignIn/SignIn.js';
 import Register from './components/Register/Register.js';
 import Footer from './components/Footer/Footer.js';
@@ -28,7 +29,7 @@ const initialState = {
     input: '',
     imageUrl: '',
     box: {},
-    route: 'signIn',
+    route: 'about',
     isSignedIn: false,
     user: {
         id: '',
@@ -124,7 +125,7 @@ class App extends Component {
     }
 
     onRouteChange = (route) => {
-        if (route === 'signIn' || route === 'register') {
+        if (route === 'signIn' || route === 'register' || route === 'about') {
             this.setState(initialState);
         }
         else if (route === 'home') {
@@ -156,7 +157,11 @@ class App extends Component {
                 :   (
                         route === 'signIn'
                         ?   <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} invalidLogin={this.invalidLogin}/>
-                        :   <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                        :   (
+                                route === 'register'
+                                ?   <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                                :   <About />
+                            )
                     )
             }
             <Footer />
