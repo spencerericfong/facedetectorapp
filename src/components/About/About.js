@@ -6,7 +6,7 @@ const About = () => {
         <div>
             <h1 className="f-5-l"> Not Face Blind </h1>
             <div className="center">
-                <Logo id="logo" />
+                <Logo />
             </div>
             <article className='f3'>
                 <p>This is an About page!</p>
