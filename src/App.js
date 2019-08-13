@@ -82,6 +82,9 @@ class App extends Component {
 
     onPictureSubmit = () => {
         this.setState({imageUrl: this.state.input});
+        if (this.state.input === '') {
+            return;
+        }
             fetch('http://localhost:3000/imageurl', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
