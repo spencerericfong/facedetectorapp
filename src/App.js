@@ -118,7 +118,7 @@ class App extends Component {
             })
             .catch(err => {
                 console.log(err);
-                toast.error("Error loading image.", {
+                toast.error("Error loading image. Is the url valid?", {
                     position: toast.POSITION.TOP_CENTER
                 })
             });
