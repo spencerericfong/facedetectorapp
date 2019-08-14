@@ -13,13 +13,13 @@ const handleSignin = (db, bcrypt) => (req, res) => {
                     .then(user => {
                         res.json(user[0]);
                     })
-                    .catch(err => res.status(400).send('Unable to retrieve user'))
+                    .catch(err => res.sendStatus(400))
             }
             else {
-                res.status(400).send('Invalid credentials');
+                res.sendStatus(400);
             }
         })
-        .catch(err => res.status(400).send('An error occurred'));
+        .catch(err => res.sendStatus(400));
 }
 
 module.exports = {

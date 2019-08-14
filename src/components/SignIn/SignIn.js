@@ -33,7 +33,10 @@ class SignIn extends React.Component {
                     this.props.onRouteChange('home');
                 }
             })
-            .catch(this.props.invalidLogin());
+            .catch(err => {
+                console.log(err);
+                this.props.invalidLogin();
+            });
     }
 
     onEnterSignIn = event => {
@@ -53,7 +56,10 @@ class SignIn extends React.Component {
                         this.props.onRouteChange('home');
                     }
                 })
-                .catch(this.props.invalidLogin());
+                .catch(err => {
+                    console.log(err);
+                    this.props.invalidLogin();
+                });
         }
     }
 
