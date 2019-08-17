@@ -18,7 +18,7 @@ class SignIn extends React.Component {
     }
 
     onClickSignIn = () => {
-        fetch('https://whispering-stream-55808.herokuapp.com/signin', {
+        fetch('https://not-face-blind.herokuapp.com/signin', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -41,7 +41,7 @@ class SignIn extends React.Component {
 
     onEnterSignIn = event => {
         if (event.key === 'Enter') {
-            fetch('https://whispering-stream-55808.herokuapp.com/signin', {
+            fetch('https://not-face-blind.herokuapp.com/signin', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
