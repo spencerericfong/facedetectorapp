@@ -23,7 +23,7 @@ class Register extends React.Component {
     }
 
     onClickRegister = () => {
-        fetch('http://localhost:3000/register', {
+        fetch('https://whispering-stream-55808.herokuapp.com/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -43,7 +43,7 @@ class Register extends React.Component {
 
     onEnterRegister = event => {
         if (event.key === 'Enter') {
-            fetch('http://localhost:3000/register', {
+            fetch('https://whispering-stream-55808.herokuapp.com/register', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({

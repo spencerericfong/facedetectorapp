@@ -86,7 +86,7 @@ class App extends Component {
         if (this.state.input === '') {
             return;
         }
-            fetch('http://localhost:3000/imageurl', {
+            fetch('https://whispering-stream-55808.herokuapp.com/imageurl', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -96,7 +96,7 @@ class App extends Component {
             .then(response => response.json())
             .then(response => {
                 if (response) {
-                    fetch('http://localhost:3000/image', {
+                    fetch('https://whispering-stream-55808.herokuapp.com/image', {
                         method: 'put',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({
