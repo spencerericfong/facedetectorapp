@@ -20,5 +20,6 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
-  }
+  },
+  "homepage": "https://not-face-blind.herokuapp.com/"
 }
