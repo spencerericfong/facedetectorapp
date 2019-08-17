@@ -86,7 +86,7 @@ class App extends Component {
         if (this.state.input === '') {
             return;
         }
-            fetch('https://not-face-blind.herokuapp.com/imageurl', {
+            fetch('https://not-face-blind-api.herokuapp.com/imageurl', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -96,7 +96,7 @@ class App extends Component {
             .then(response => response.json())
             .then(response => {
                 if (response) {
-                    fetch('https://not-face-blind.herokuapp.com/image', {
+                    fetch('https://not-face-blind-api.herokuapp.com/image', {
                         method: 'put',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({

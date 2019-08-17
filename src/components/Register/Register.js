@@ -23,7 +23,7 @@ class Register extends React.Component {
     }
 
     onClickRegister = () => {
-        fetch('https://not-face-blind.herokuapp.com/register', {
+        fetch('https://not-face-blind-api.herokuapp.com/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -43,7 +43,7 @@ class Register extends React.Component {
 
     onEnterRegister = event => {
         if (event.key === 'Enter') {
-            fetch('https://not-face-blind.herokuapp.com/register', {
+            fetch('https://not-face-blind-api.herokuapp.com/register', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
