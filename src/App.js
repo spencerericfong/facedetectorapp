@@ -28,7 +28,7 @@ const particlesOptions = {
 const initialState = {
     input: '',
     imageUrl: '',
-    box: {},
+    box: [],
     route: 'about',
     isSignedIn: false,
     user: {
@@ -61,7 +61,7 @@ class App extends Component {
     }
 
     calculateFaceLocation = (data) => {
-        const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+        const clarifaiFace = data.region_info.bounding_box;
         const image = document.getElementById('inputImage');
         const width = Number(image.width);
         const height = Number(image.height);
@@ -74,7 +74,8 @@ class App extends Component {
     }
 
     displayFaceBox = (box) => {
-        this.setState({box: box});
+        this.state.box.push(box);
+        this.setState({box: this.state.box});
     }
 
     onInputChange = (event) => {
@@ -114,7 +115,9 @@ class App extends Component {
                             })
                         });
                 }
-                this.displayFaceBox(this.calculateFaceLocation(response))
+                for (const region of response.outputs[0].data.regions) {
+                    this.displayFaceBox(this.calculateFaceLocation(region));
+                }
             })
             .catch(err => {
                 console.log(err);

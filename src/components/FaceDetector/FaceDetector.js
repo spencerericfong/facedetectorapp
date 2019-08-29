@@ -6,7 +6,11 @@ const FaceDectector = ({ box, imageUrl }) => {
         <div className='center ma'>
             <div className='absolute mt2'>
                 <img id='inputImage' src={imageUrl} alt="" width='500px' height='auto'/>
-                <div className='bounding-box' style={{top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol}}></div>
+                <div className='bounding-boxes'>
+                    {box.map((face, index) => {
+                        return <div className='bounding-box' key={index} style={{top: face.topRow, right: face.rightCol, bottom: face.bottomRow, left: face.leftCol}}></div>
+                    })}
+                </div>
             </div>
         </div>
     );
