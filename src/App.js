@@ -83,6 +83,7 @@ class App extends Component {
     }
 
     onPictureSubmit = () => {
+        this.setState({box: []});
         this.setState({imageUrl: this.state.input});
         if (this.state.input === '') {
             return;
