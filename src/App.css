@@ -15,3 +15,7 @@
     left: 0;
     z-index: -1;
 }
+
+.logo {
+    margin-left: 10%;
+}

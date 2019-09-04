@@ -232,7 +232,9 @@ class App extends Component {
             { route === 'home'
                 ?   <div>
                         <h1 className="f-5-l">Not Face Blind</h1>
-                        <Logo />
+                        <div className='logo'>
+                            <Logo />
+                        </div>
                         <Rank name={this.state.user.name} entries={this.state.user.entries}/>
                         <ImageLinkForm onUrlInputChange={this.onUrlInputChange} onFileInputChange={this.onFileInputChange} onUrlPictureSubmit={this.onUrlPictureSubmit} onFilePictureSubmit={this.onFilePictureSubmit}/>
                         <FaceDectector isUrl={isUrl} box={box} imageUrl={imageUrl} imageBytes={imageBytes}/>
