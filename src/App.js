@@ -232,7 +232,7 @@ class App extends Component {
             { route === 'home'
                 ?   <div>
                         <h1 className="f-5-l">Not Face Blind</h1>
-                        <div className='logo'>
+                        <div className='center'>
                             <Logo />
                         </div>
                         <Rank name={this.state.user.name} entries={this.state.user.entries}/>
