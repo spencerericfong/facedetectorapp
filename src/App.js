@@ -26,8 +26,11 @@ const particlesOptions = {
 }
 
 const initialState = {
-    input: '',
+    isUrl: true,
+    urlInput: '',
+    fileInput: null,
     imageUrl: '',
+    imageBytes: '',
     box: [],
     route: 'about',
     isSignedIn: false,
@@ -78,21 +81,84 @@ class App extends Component {
         this.setState({box: this.state.box});
     }
 
-    onInputChange = (event) => {
-        this.setState({input: event.target.value});
+    onUrlInputChange = (event) => {
+        this.setState({urlInput: event.target.value});
     }
 
-    onPictureSubmit = () => {
+    onFileInputChange = (event) => {
+        this.setState({fileInput: event.target.files[0]});
+    }
+
+    onUrlPictureSubmit = () => {
+        this.setState({isUrl: true});
         this.setState({box: []});
-        this.setState({imageUrl: this.state.input});
-        if (this.state.input === '') {
+        this.setState({imageUrl: this.state.urlInput});
+        if (this.state.urlInput === '') {
             return;
         }
+        fetch('https://not-face-blind-api.herokuapp.com/imageurl', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                input: this.state.urlInput,
+            }),
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response) {
+                fetch('https://not-face-blind-api.herokuapp.com/image', {
+                    method: 'put',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        id: this.state.user.id,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(count => {
+                        this.setState(Object.assign(this.state.user, { entries: count }))
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        toast.error("Oops! An error occurred.", {
+                            position: toast.POSITION.TOP_CENTER
+                        })
+                    });
+            }
+            if (!Object.keys(response.outputs[0].data).length) {
+                toast.info("No face detected.", {
+                    position: toast.POSITION.TOP_CENTER
+                });
+            }
+            else {
+                for (const region of response.outputs[0].data.regions) {
+                    this.displayFaceBox(this.calculateFaceLocation(region));
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            toast.error("Error loading image. Is the url valid?", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        });
+    }
+
+    onFilePictureSubmit = () => {
+        this.setState({isUrl: false});
+        this.setState({box: []});
+        if (this.state.fileInput === null) {
+            return;
+        }
+        const imageReader = new FileReader();
+        imageReader.readAsDataURL(this.state.fileInput);
+        imageReader.onloadend = () => {
+            const bytes = imageReader.result;
+            this.setState({imageBytes: bytes});
             fetch('https://not-face-blind-api.herokuapp.com/imageurl', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    input: this.state.input,
+                    input: this.state.imageBytes.split(',')[1],
                 }),
             })
             .then(response => response.json())
@@ -116,8 +182,15 @@ class App extends Component {
                             })
                         });
                 }
-                for (const region of response.outputs[0].data.regions) {
-                    this.displayFaceBox(this.calculateFaceLocation(region));
+                if (!Object.keys(response.outputs[0].data).length) {
+                    toast.info("No face detected.", {
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                }
+                else {
+                    for (const region of response.outputs[0].data.regions) {
+                        this.displayFaceBox(this.calculateFaceLocation(region));
+                    }
                 }
             })
             .catch(err => {
@@ -126,6 +199,12 @@ class App extends Component {
                     position: toast.POSITION.TOP_CENTER
                 })
             });
+        };
+        imageReader.onerror = () => {
+            toast.error("Oops! An error occurred.", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        };
     }
 
     onRouteChange = (route) => {
@@ -145,7 +224,7 @@ class App extends Component {
     }
 
     render() {
-        const { imageUrl, box, route, isSignedIn } = this.state;
+        const { isUrl, imageUrl, imageBytes, box, route, isSignedIn } = this.state;
         return (
         <div className="App">
             <Particles className='particles' params={particlesOptions} />
@@ -155,8 +234,8 @@ class App extends Component {
                         <h1 className="f-5-l">Not Face Blind</h1>
                         <Logo />
                         <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-                        <ImageLinkForm onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit}/>
-                        <FaceDectector box={box} imageUrl={imageUrl}/>
+                        <ImageLinkForm onUrlInputChange={this.onUrlInputChange} onFileInputChange={this.onFileInputChange} onUrlPictureSubmit={this.onUrlPictureSubmit} onFilePictureSubmit={this.onFilePictureSubmit}/>
+                        <FaceDectector isUrl={isUrl} box={box} imageUrl={imageUrl} imageBytes={imageBytes}/>
                     </div>
                 :   (
                         route === 'signIn'
