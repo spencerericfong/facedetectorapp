@@ -1,3 +1,4 @@
+# Not Face Blind
 **https://not-face-blind.herokuapp.com/**
 
 **Not Face Blind** is a simple web application that detects faces in images. In order to use the application, users must register, and login upon subsequent visits to the site. However, **USER DATA IS NOT USED FOR ANYTHING**. Feel free to use fake information. The website is secure, fully responsive, and mobile-friendly too! Thanks for visiting.
