@@ -3,7 +3,7 @@
 
 **Not Face Blind** is a simple web application that detects faces in images. In order to use the application, users must register, and login upon subsequent visits to the site. However, **USER DATA IS NOT USED FOR ANYTHING**. Feel free to use fake information. The website is secure, fully responsive, and mobile-friendly too! Thanks for visiting.
 
-*This is the **front-end** repository. For the API, see: [not-face-blind-api](https://github.com/spencerericfong/not-face-blind-api).*
+*This is the **front-end** repository. For the API, see: [not-face-blind-api](https://github.com/spencerericfong/not-face-blind-api). Note: I accidentally broke the API so the app is basically down, you can't log in or register to view the actual app. The homepage is still ok though.*
 
 ---
 
